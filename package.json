@@ -24,7 +24,8 @@
     "example:auth": "ts-node examples/with-auth.ts",
     "example:cache": "ts-node examples/with-cache.ts",
     "example:errors": "ts-node examples/error-handling.ts",
-    "demo": "npm run example:basic && npm run example:auth && npm run example:cache",
+    "demo": "node demo.js",
+    "demo:full": "npm run example:basic && npm run example:auth && npm run example:cache",
     "prepare": "npm run build"
   },
   "keywords": [
