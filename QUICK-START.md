@@ -6,7 +6,7 @@
 
 ```bash
 # Instalar desde GitHub
-npm install git+https://github.com/jarcos/api-service-library.git
+npm install git+https://github.com/jarc0s/jarcos_node_network.git
 
 # Instalar dependencia requerida
 npm install axios
@@ -15,7 +15,7 @@ npm install axios
 ### 2. Uso inmediato
 
 ```typescript
-import { ApiClient } from '@jarcos/api-service-library';
+import { ApiClient } from '@jarc0s/jarcos-node-network';
 
 const api = new ApiClient({
   baseURL: 'https://tu-api.com'
@@ -33,7 +33,7 @@ const data = await api.get('/users');
 
 ```typescript
 // lib/api.ts
-import { ApiClient } from '@jarcos/api-service-library';
+import { ApiClient } from '@jarc0s/jarcos-node-network';
 
 export const api = new ApiClient({
   baseURL: process.env.NEXT_PUBLIC_API_URL!,
@@ -146,7 +146,7 @@ module.exports = router;
 ## 🛡️ Manejo de Errores Profesional
 
 ```typescript
-import { ApiError, AuthError, NetworkError, ErrorCode } from '@jarcos/api-service-library';
+import { ApiError, AuthError, NetworkError, ErrorCode } from '@jarc0s/jarcos-node-network';
 
 // Función universal de manejo de errores
 function handleApiError(error: unknown): string {

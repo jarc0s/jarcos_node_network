@@ -33,12 +33,13 @@
     }
   },
   "include": [
-    "src/**/*",
-    "examples/**/*"
+    "src/**/*"
   ],
   "exclude": [
     "node_modules",
     "dist",
+    "examples",
+    "tests",
     "**/*.test.ts",
     "**/*.spec.ts"
   ]

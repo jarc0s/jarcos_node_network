@@ -1,5 +1,5 @@
 // Ejemplo para usuarios de TypeScript
-import { ApiClient, ApiError, AuthError } from '@jarcos/api-service-library';
+import { ApiClient, ApiError, AuthError } from '@jarc0s/jarcos-node-network';
 
 // Definir interfaces para tu API
 interface User {

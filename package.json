@@ -1,5 +1,5 @@
 {
-  "name": "@jarcos/api-service-library",
+  "name": "@jarc0s/jarcos-node-network",
   "version": "1.0.0",
   "description": "A comprehensive REST API client library for Node.js/Next.js with authentication, caching, retry logic, and error handling",
   "main": "dist/index.js",
@@ -40,16 +40,16 @@
     "retry",
     "interceptors"
   ],
-  "author": "Your Name",
+  "author": "jarc0s <jarcos@example.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jarcos/api-service-library.git"
+    "url": "git+https://github.com/jarc0s/jarcos_node_network.git"
   },
   "bugs": {
-    "url": "https://github.com/jarcos/api-service-library/issues"
+    "url": "https://github.com/jarc0s/jarcos_node_network/issues"
   },
-  "homepage": "https://github.com/jarcos/api-service-library#readme",
+  "homepage": "https://github.com/jarc0s/jarcos_node_network#readme",
   "peerDependencies": {
     "axios": "^1.0.0"
   },

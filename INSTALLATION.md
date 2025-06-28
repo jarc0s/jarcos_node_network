@@ -4,17 +4,17 @@
 
 ### Método 1: Instalación directa
 ```bash
-npm install git+https://github.com/jarcos/api-service-library.git
+npm install git+https://github.com/jarc0s/jarcos_node_network.git
 ```
 
 ### Método 2: Con tag específico
 ```bash
-npm install git+https://github.com/jarcos/api-service-library.git#v1.0.0
+npm install git+https://github.com/jarc0s/jarcos_node_network.git#v1.0.0
 ```
 
 ### Método 3: Desde una rama específica
 ```bash
-npm install git+https://github.com/jarcos/api-service-library.git#main
+npm install git+https://github.com/jarc0s/jarcos_node_network.git#main
 ```
 
 ## 🔧 Instalación de dependencias
@@ -30,7 +30,7 @@ npm install axios
 Después de instalar, puedes verificar que funciona:
 
 ```typescript
-import { ApiClient } from '@jarcos/api-service-library';
+import { ApiClient } from '@jarc0s/jarcos-node-network';
 
 const api = new ApiClient({
   baseURL: 'https://jsonplaceholder.typicode.com'
@@ -48,8 +48,8 @@ Si quieres modificar la librería:
 
 ```bash
 # Clonar repositorio
-git clone https://github.com/jarcos/api-service-library.git
-cd api-service-library
+git clone https://github.com/jarc0s/jarcos_node_network.git
+cd jarcos_node_network
 
 # Instalar dependencias
 npm install

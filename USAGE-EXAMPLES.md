@@ -4,7 +4,7 @@
 
 ```typescript
 // lib/api.ts
-import { ApiClient } from '@jarcos/api-service-library';
+import { ApiClient } from '@jarc0s/jarcos-node-network';
 
 export const api = new ApiClient({
   baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api',
@@ -74,7 +74,7 @@ export function useAuth() {
 // pages/login.tsx
 import { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
-import { ApiError, AuthError } from '@jarcos/api-service-library';
+import { ApiError, AuthError } from '@jarc0s/jarcos-node-network';
 
 export default function LoginPage() {
   const { login } = useAuth();
@@ -123,7 +123,7 @@ export default function LoginPage() {
 
 ```typescript
 // services/userService.ts
-import { ApiClient } from '@jarcos/api-service-library';
+import { ApiClient } from '@jarc0s/jarcos-node-network';
 
 const externalApi = new ApiClient({
   baseURL: 'https://external-api.com',
@@ -190,7 +190,7 @@ export class UserService {
 // routes/users.ts
 import express from 'express';
 import { UserService } from '../services/userService';
-import { ApiError } from '@jarcos/api-service-library';
+import { ApiError } from '@jarc0s/jarcos-node-network';
 
 const router = express.Router();
 const userService = new UserService();
@@ -234,7 +234,7 @@ export default router;
 
 ```typescript
 // config/api.ts
-import { ApiClient } from '@jarcos/api-service-library';
+import { ApiClient } from '@jarc0s/jarcos-node-network';
 
 // Cliente para API principal
 export const mainApi = new ApiClient({
@@ -335,7 +335,7 @@ import {
   ValidationError, 
   RetryExhaustedError,
   ErrorCode 
-} from '@jarcos/api-service-library';
+} from '@jarc0s/jarcos-node-network';
 
 export class ErrorHandler {
   static handle(error: unknown): { message: string; shouldRetry: boolean; statusCode: number } {
@@ -469,7 +469,7 @@ export function useApiCall<T>() {
 
 ```typescript
 // utils/apiMonitor.ts
-import { ApiClient } from '@jarcos/api-service-library';
+import { ApiClient } from '@jarc0s/jarcos-node-network';
 
 export class ApiMonitor {
   private metrics = {

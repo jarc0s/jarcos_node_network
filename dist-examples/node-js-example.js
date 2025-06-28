@@ -1,5 +1,5 @@
 // Ejemplo para usuarios de JavaScript puro (Node.js)
-const { ApiClient, ApiError } = require('@jarcos/api-service-library');
+const { ApiClient, ApiError } = require('@jarc0s/jarcos-node-network');
 
 // Configuración básica
 const api = new ApiClient({

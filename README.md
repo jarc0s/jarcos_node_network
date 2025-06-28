@@ -20,7 +20,7 @@ A comprehensive, production-ready REST API client library for Node.js and Next.j
 ### From GitHub (Recommended)
 
 ```bash
-npm install git+https://github.com/jarcos/api-service-library.git
+npm install git+https://github.com/jarc0s/jarcos_node_network.git
 ```
 
 ### Install Peer Dependencies
@@ -43,8 +43,8 @@ The library includes complete TypeScript definitions. No additional @types packa
 ### For Development/Contributing
 
 ```bash
-git clone https://github.com/jarcos/api-service-library.git
-cd api-service-library
+git clone https://github.com/jarc0s/jarcos_node_network.git
+cd jarcos_node_network
 npm install
 npm run build
 npm run demo  # Run all examples
@@ -470,4 +470,4 @@ If you have questions or need help, please:
 
 ---
 
-Made with ❤️ by [Your Name](https://github.com/yourusername)
+Made with ❤️ by [jarc0s](https://github.com/jarc0s)
