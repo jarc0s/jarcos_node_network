@@ -17,19 +17,37 @@ A comprehensive, production-ready REST API client library for Node.js and Next.j
 
 ## 📦 Installation
 
-Install directly from GitHub:
+### From GitHub (Recommended)
 
 ```bash
-npm install git+https://github.com/yourusername/api-service-library.git
+npm install git+https://github.com/jarcos/api-service-library.git
 ```
 
-Or clone and install locally:
+### Install Peer Dependencies
 
 ```bash
-git clone https://github.com/yourusername/api-service-library.git
+npm install axios
+```
+
+### Verify Installation
+
+```bash
+# Run a quick test
+node -e "const { ApiClient } = require('@jarcos/api-service-library'); console.log('✅ Library loaded successfully!');"
+```
+
+### For TypeScript Projects
+
+The library includes complete TypeScript definitions. No additional @types packages needed!
+
+### For Development/Contributing
+
+```bash
+git clone https://github.com/jarcos/api-service-library.git
 cd api-service-library
 npm install
 npm run build
+npm run demo  # Run all examples
 ```
 
 ## 🏁 Quick Start

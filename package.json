@@ -1,5 +1,5 @@
 {
-  "name": "api-service-library",
+  "name": "@jarcos/api-service-library",
   "version": "1.0.0",
   "description": "A comprehensive REST API client library for Node.js/Next.js with authentication, caching, retry logic, and error handling",
   "main": "dist/index.js",
@@ -23,7 +23,9 @@
     "example:basic": "ts-node examples/basic-usage.ts",
     "example:auth": "ts-node examples/with-auth.ts",
     "example:cache": "ts-node examples/with-cache.ts",
-    "example:errors": "ts-node examples/error-handling.ts"
+    "example:errors": "ts-node examples/error-handling.ts",
+    "demo": "npm run example:basic && npm run example:auth && npm run example:cache",
+    "prepare": "npm run build"
   },
   "keywords": [
     "api",
@@ -41,12 +43,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yourusername/api-service-library.git"
+    "url": "git+https://github.com/jarcos/api-service-library.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/api-service-library/issues"
+    "url": "https://github.com/jarcos/api-service-library/issues"
   },
-  "homepage": "https://github.com/yourusername/api-service-library#readme",
+  "homepage": "https://github.com/jarcos/api-service-library#readme",
   "peerDependencies": {
     "axios": "^1.0.0"
   },
