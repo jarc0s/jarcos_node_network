@@ -1,0 +1,68 @@
+{
+  "name": "api-service-library",
+  "version": "1.0.0",
+  "description": "A comprehensive REST API client library for Node.js/Next.js with authentication, caching, retry logic, and error handling",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*",
+    "src/**/*",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts --fix",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run clean && npm run build",
+    "example:basic": "ts-node examples/basic-usage.ts",
+    "example:auth": "ts-node examples/with-auth.ts",
+    "example:cache": "ts-node examples/with-cache.ts",
+    "example:errors": "ts-node examples/error-handling.ts"
+  },
+  "keywords": [
+    "api",
+    "rest",
+    "client",
+    "http",
+    "axios",
+    "typescript",
+    "authentication",
+    "cache",
+    "retry",
+    "interceptors"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/api-service-library.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/api-service-library/issues"
+  },
+  "homepage": "https://github.com/yourusername/api-service-library#readme",
+  "peerDependencies": {
+    "axios": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.0",
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "axios": "^1.6.0",
+    "eslint": "^8.0.0",
+    "jest": "^29.5.0",
+    "ts-jest": "^29.1.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
