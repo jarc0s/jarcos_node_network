@@ -13,6 +13,7 @@ import {
 import { AuthManager } from './auth/auth-manager';
 import { CacheManager } from './cache/cache-manager';
 import { RetryManager } from './retry/retry-manager';
+import { DeduplicationManager } from './deduplication/deduplication-manager';
 import { Logger } from './logging/logger';
 
 import { RequestInterceptors } from './interceptors/request';
@@ -35,6 +36,7 @@ export class ApiClient extends EventEmitter {
   private authManager!: AuthManager;
   private cacheManager!: CacheManager;
   private retryManager!: RetryManager;
+  private deduplicationManager!: DeduplicationManager;
   private logger!: Logger;
   private requestInterceptors!: RequestInterceptors;
   private responseInterceptors!: ResponseInterceptors;
@@ -65,7 +67,8 @@ export class ApiClient extends EventEmitter {
         features: {
           auth: this.authManager.isEnabled(),
           cache: this.cacheManager.isEnabled(),
-          retry: this.retryManager.isEnabled()
+          retry: this.retryManager.isEnabled(),
+          deduplication: this.deduplicationManager.isEnabled()
         }
       });
     } catch (error) {
@@ -77,10 +80,11 @@ export class ApiClient extends EventEmitter {
   }
 
   private initializeComponents(): void {
+    this.logger = new Logger(this.config.logging);
     this.authManager = new AuthManager(this.config.auth);
     this.cacheManager = new CacheManager(this.config.cache);
     this.retryManager = new RetryManager(this.config.retry);
-    this.logger = new Logger(this.config.logging);
+    this.deduplicationManager = new DeduplicationManager(this.config.deduplication, this.logger);
   }
 
   private initializeAxios(): void {
@@ -180,21 +184,30 @@ export class ApiClient extends EventEmitter {
       RequestValidator.validateHeaders(config.headers);
       RequestValidator.validateData(config.data, method);
 
-      // Check cache first
-      const response = await this.tryGetFromCache<T>(method, url, config);
-      if (response) {
-        return response;
-      }
-
-      // Prepare request config
-      const requestConfig = {
+      // Use deduplication to execute the request
+      return await this.deduplicationManager.executeRequest<ApiResponse<T>>(
         method,
         url,
-        ...config
-      } as any;
+        async () => {
+          // Check cache first
+          const response = await this.tryGetFromCache<T>(method, url, config);
+          if (response) {
+            return response;
+          }
 
-      // Execute with retry
-      return await this.executeWithRetry<T>(requestConfig, config);
+          // Prepare request config
+          const requestConfig = {
+            method,
+            url,
+            ...config
+          } as any;
+
+          // Execute with retry
+          return await this.executeWithRetry<T>(requestConfig, config);
+        },
+        config.data,
+        config.params
+      );
     } catch (error) {
       if (error instanceof ApiError) {
         throw error;
@@ -252,6 +265,11 @@ export class ApiClient extends EventEmitter {
         // Increment retry count for next attempt
         const metadata = (requestConfig as any).metadata || {};
         metadata.retryCount = (metadata.retryCount || 0) + 1;
+        
+        // If interceptors are disabled, manually convert AxiosError to ApiError
+        if (!this.config.enableInterceptors && error.isAxiosError) {
+          throw ApiError.fromAxiosError(error, requestId);
+        }
         
         throw error;
       }
@@ -331,6 +349,10 @@ export class ApiClient extends EventEmitter {
     return this.retryManager.getStats();
   }
 
+  getDeduplicationStats() {
+    return this.deduplicationManager.getStats();
+  }
+
   // Configuration methods
   updateConfig(newConfig: Partial<ApiClientConfig>): void {
     this.config = mergeConfigs(this.config, { baseURL: '' }, newConfig);
@@ -395,6 +417,10 @@ export class ApiClient extends EventEmitter {
     
     if (this.cacheManager) {
       this.cacheManager.clear().catch(() => {});
+    }
+
+    if (this.deduplicationManager) {
+      this.deduplicationManager.clear();
     }
 
     this.logger.info('ApiClient destroyed');

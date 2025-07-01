@@ -29,7 +29,7 @@ export function mergeConfigs(
   userConfig: Partial<ApiClientConfig>
 ): ApiClientConfig {
   // First merge default with environment
-  let merged = deepMerge(defaultConfig, environmentConfig);
+  let merged = deepMerge(defaultConfig, environmentConfig as Partial<ApiClientConfig>);
   
   // Then merge with user config
   merged = deepMerge(merged, userConfig);

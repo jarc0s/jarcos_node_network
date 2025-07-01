@@ -7,6 +7,7 @@ A comprehensive, production-ready REST API client library for Node.js and Next.j
 - **🔐 Authentication Management**: Automatic token handling, refresh, and storage
 - **💾 Smart Caching**: Configurable in-memory caching with TTL support
 - **🔄 Retry Logic**: Exponential backoff with configurable retry strategies
+- **🔀 Request Deduplication**: Prevents duplicate simultaneous requests
 - **📝 Comprehensive Logging**: Configurable logging with multiple levels
 - **🛡️ Error Handling**: Custom error classes with detailed information
 - **🔌 Interceptors**: Request/response interceptors for customization
@@ -126,6 +127,29 @@ const api = new ApiClient({
 const data = await api.get('/unstable-endpoint');
 ```
 
+### With Request Deduplication
+
+```typescript
+const api = new ApiClient({
+  baseURL: 'https://api.example.com',
+  deduplication: {
+    enabled: true,
+    timeout: 30000 // 30 seconds
+  }
+});
+
+// Execute multiple identical requests simultaneously
+const [result1, result2, result3] = await Promise.all([
+  api.get('/users/123'),  // Executes HTTP request
+  api.get('/users/123'),  // Shares result from first request
+  api.get('/users/123')   // Shares result from first request
+]);
+
+// All results are identical - only one HTTP request was made
+console.log(result1 === result2); // true
+console.log('Deduplication stats:', api.getDeduplicationStats());
+```
+
 ## 📚 API Reference
 
 ### ApiClient Constructor
@@ -167,6 +191,12 @@ interface ApiClientConfig {
     backoffFactor?: number;
     baseDelay?: number;
     maxDelay?: number;
+  };
+  
+  deduplication?: {
+    enabled?: boolean;
+    timeout?: number;
+    keyGenerator?: (method: string, url: string, data?: any, params?: any) => string;
   };
   
   logging?: {
@@ -252,6 +282,9 @@ api.invalidateCache(pattern?: string): Promise<number>
 ```typescript
 // Get retry statistics
 api.getRetryStats(): RetryStats
+
+// Get deduplication statistics
+api.getDeduplicationStats(): DeduplicationStats
 
 // Update configuration
 api.updateConfig(newConfig: Partial<ApiClientConfig>): void

@@ -11,6 +11,7 @@ export * from './errors';
 export { AuthManager } from './auth/auth-manager';
 export { CacheManager } from './cache/cache-manager';
 export { RetryManager } from './retry/retry-manager';
+export { DeduplicationManager } from './deduplication/deduplication-manager';
 export { Logger, createLogger } from './logging/logger';
 
 // Strategies and utilities

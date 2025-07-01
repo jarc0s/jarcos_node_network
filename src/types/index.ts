@@ -4,6 +4,7 @@ export * from './cache';
 export * from './retry';
 export * from './logging';
 export * from './api';
+export * from '../deduplication/types';
 
 export interface EventEmitter {
   on(event: string, listener: (...args: any[]) => void): void;

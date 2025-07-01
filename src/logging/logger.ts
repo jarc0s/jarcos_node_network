@@ -201,34 +201,54 @@ export class Logger {
     return parts.join(' ');
   }
 
-  private sanitizeData(data: any): any {
+  private sanitizeData(data: any, visited: WeakSet<object> = new WeakSet(), depth: number = 0): any {
+    // Handle primitives and null
     if (!data || typeof data !== 'object') return data;
+    
+    // Prevent infinite recursion with depth limit
+    if (depth > 10) return '[MAX_DEPTH_EXCEEDED]';
+    
+    // Handle circular references
+    if (visited.has(data)) return '[CIRCULAR_REFERENCE]';
+    visited.add(data);
 
-    const sanitized = Array.isArray(data) ? [...data] : { ...data };
+    try {
+      const sanitized = Array.isArray(data) ? [...data] : { ...data };
 
-    const sanitizeValue = (obj: any, key: string): void => {
-      if (this.config.sensitiveFields.some(field => 
-        key.toLowerCase().includes(field.toLowerCase())
-      )) {
-        obj[key] = '[REDACTED]';
-      } else if (typeof obj[key] === 'object' && obj[key] !== null) {
-        obj[key] = this.sanitizeData(obj[key]);
-      }
-    };
-
-    if (Array.isArray(sanitized)) {
-      sanitized.forEach((item, index) => {
-        if (typeof item === 'object' && item !== null) {
-          sanitized[index] = this.sanitizeData(item);
+      const sanitizeValue = (obj: any, key: string): void => {
+        try {
+          if (this.config.sensitiveFields.some(field => 
+            key.toLowerCase().includes(field.toLowerCase())
+          )) {
+            obj[key] = '[REDACTED]';
+          } else if (typeof obj[key] === 'object' && obj[key] !== null) {
+            obj[key] = this.sanitizeData(obj[key], visited, depth + 1);
+          }
+        } catch (error) {
+          obj[key] = '[SANITIZATION_ERROR]';
         }
-      });
-    } else {
-      Object.keys(sanitized).forEach(key => {
-        sanitizeValue(sanitized, key);
-      });
-    }
+      };
 
-    return sanitized;
+      if (Array.isArray(sanitized)) {
+        sanitized.forEach((item, index) => {
+          try {
+            if (typeof item === 'object' && item !== null) {
+              sanitized[index] = this.sanitizeData(item, visited, depth + 1);
+            }
+          } catch (error) {
+            sanitized[index] = '[SANITIZATION_ERROR]';
+          }
+        });
+      } else {
+        Object.keys(sanitized).forEach(key => {
+          sanitizeValue(sanitized, key);
+        });
+      }
+
+      return sanitized;
+    } catch (error) {
+      return '[SANITIZATION_ERROR]';
+    }
   }
 
   private truncateMessage(message: string): string {

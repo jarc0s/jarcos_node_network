@@ -16,14 +16,20 @@ const sessionStorageMock = {
   clear: jest.fn(),
 };
 
-// Make storage available globally
-Object.defineProperty(window, 'localStorage', {
-  value: localStorageMock
-});
+// Make storage available globally (only if window exists)
+if (typeof window !== 'undefined') {
+  Object.defineProperty(window, 'localStorage', {
+    value: localStorageMock
+  });
 
-Object.defineProperty(window, 'sessionStorage', {
-  value: sessionStorageMock
-});
+  Object.defineProperty(window, 'sessionStorage', {
+    value: sessionStorageMock
+  });
+} else {
+  // For Node.js environment
+  (global as any).localStorage = localStorageMock;
+  (global as any).sessionStorage = sessionStorageMock;
+}
 
 // Mock console methods to reduce noise during tests
 global.console = {

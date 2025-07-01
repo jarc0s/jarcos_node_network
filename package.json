@@ -24,6 +24,10 @@
     "example:auth": "ts-node examples/with-auth.ts",
     "example:cache": "ts-node examples/with-cache.ts",
     "example:errors": "ts-node examples/error-handling.ts",
+    "example:login": "ts-node examples/simple-login-example.ts",
+    "example:login-full": "ts-node examples/login-example.ts",
+    "example:retry": "ts-node examples/retry-test-example.ts",
+    "example:retry-config": "ts-node examples/retry-config-example.ts",
     "demo": "node demo.js",
     "demo:full": "npm run example:basic && npm run example:auth && npm run example:cache",
     "prepare": "npm run build"

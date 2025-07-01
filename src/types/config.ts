@@ -3,6 +3,7 @@ import { AuthConfig } from './auth';
 import { CacheConfig } from './cache';
 import { RetryConfig } from './retry';
 import { LoggerConfig } from './logging';
+import { DeduplicationConfig } from '../deduplication/types';
 
 export type Environment = 'development' | 'staging' | 'production' | 'test';
 
@@ -14,6 +15,7 @@ export interface ApiClientConfig {
   cache?: CacheConfig;
   retry?: RetryConfig;
   logging?: LoggerConfig;
+  deduplication?: DeduplicationConfig;
   headers?: Record<string, string>;
   axiosConfig?: AxiosRequestConfig;
   enableInterceptors?: boolean;
@@ -29,6 +31,7 @@ export interface EnvironmentConfig {
   cache?: Partial<CacheConfig>;
   retry?: Partial<RetryConfig>;
   logging?: Partial<LoggerConfig>;
+  deduplication?: Partial<DeduplicationConfig>;
 }
 
 export interface EnvironmentConfigs {
