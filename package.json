@@ -1,6 +1,6 @@
 {
   "name": "@jarc0s/jarcos-node-network",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A comprehensive REST API client library for Node.js/Next.js with authentication, caching, retry logic, and error handling",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
