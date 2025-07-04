@@ -22,7 +22,8 @@ import { AuthInterceptors } from './interceptors/auth';
 
 import { 
   ApiError, 
-  ConfigError
+  ConfigError,
+  RetryExhaustedError
 } from './errors';
 
 import { defaultConfig } from './config/defaults';
@@ -210,6 +211,11 @@ export class ApiClient extends EventEmitter {
       );
     } catch (error) {
       if (error instanceof ApiError) {
+        throw error;
+      }
+      
+      // Don't wrap other specialized errors like RetryExhaustedError
+      if (error instanceof RetryExhaustedError) {
         throw error;
       }
       
