@@ -84,7 +84,31 @@ export class ApiClient extends EventEmitter {
     this.logger = new Logger(this.config.logging);
     this.authManager = new AuthManager(this.config.auth);
     this.cacheManager = new CacheManager(this.config.cache);
-    this.retryManager = new RetryManager(this.config.retry);
+    
+    // Configure retry manager with logger integration
+    const retryConfig = {
+      ...this.config.retry,
+      onRetry: (attempt: number, error: Error) => {
+        if (this.logger.isEnabled()) {
+          // Calculate delay for logging (same logic as retry manager)
+          const baseDelay = this.config.retry?.baseDelay || 1000;
+          const backoffFactor = this.config.retry?.backoffFactor || 2;
+          const maxDelay = this.config.retry?.maxDelay || 30000;
+          
+          let delay = baseDelay * Math.pow(backoffFactor, attempt - 1);
+          if (this.config.retry?.jitter) {
+            const jitterRange = delay * 0.1;
+            const jitter = (Math.random() - 0.5) * 2 * jitterRange;
+            delay = Math.max(0, delay + jitter);
+          }
+          delay = Math.min(delay, maxDelay);
+          
+          this.logger.logRetry(attempt, this.config.retry?.maxAttempts || 3, delay, error);
+        }
+      }
+    };
+    
+    this.retryManager = new RetryManager(retryConfig);
     this.deduplicationManager = new DeduplicationManager(this.config.deduplication, this.logger);
   }
 
