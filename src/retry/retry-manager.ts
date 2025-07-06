@@ -47,8 +47,10 @@ export class RetryManager {
     
     let lastError: Error;
     let totalDelay = 0;
+    let attemptCount = 0;
 
     for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      attemptCount = attempt;
       try {
         this.stats.totalAttempts++;
         
@@ -83,7 +85,7 @@ export class RetryManager {
       }
     }
 
-    throw new RetryExhaustedError(maxAttempts, lastError!, requestId);
+    throw new RetryExhaustedError(attemptCount, lastError!, requestId);
   }
 
   calculateDelay(attempt: number, options: RetryOptions = {}): number {
@@ -120,9 +122,10 @@ export class RetryManager {
       return true;
     }
 
-    // HTTP status codes
-    if (error.response?.status) {
-      return this.config.retryStatusCodes.includes(error.response.status);
+    // HTTP status codes (check both raw AxiosError and transformed ApiError)
+    const statusCode = error.response?.status || error.status;
+    if (statusCode) {
+      return this.config.retryStatusCodes.includes(statusCode);
     }
 
     // Custom error codes

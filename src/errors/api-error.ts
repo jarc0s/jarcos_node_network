@@ -201,7 +201,9 @@ export class RetryExhaustedError extends BaseApiError {
 
   constructor(attempts: number, lastError: Error, requestId?: string) {
     super({
-      message: `Request failed after ${attempts} retry attempts: ${lastError.message}`,
+      message: attempts === 1 
+        ? `Request failed on first attempt: ${lastError.message}`
+        : `Request failed after ${attempts - 1} retry attempts: ${lastError.message}`,
       code: ErrorCode.RETRY_EXHAUSTED,
       timestamp: Date.now(),
       requestId: requestId ?? undefined,
