@@ -16,7 +16,7 @@ export class RetryManager {
       backoffFactor: 2,
       baseDelay: 1000,
       maxDelay: 30000,
-      retryCondition: this.defaultRetryCondition,
+      retryCondition: this.defaultRetryCondition.bind(this),
       retryStatusCodes: [408, 429, 500, 502, 503, 504],
       shouldResetTimeout: true,
       jitter: true,
