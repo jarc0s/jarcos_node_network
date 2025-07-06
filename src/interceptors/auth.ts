@@ -116,7 +116,8 @@ export class AuthInterceptors {
       originalRequest.headers = originalRequest.headers || {};
       originalRequest.headers[authHeader] = `${bearerPrefix} ${newToken}`;
 
-      // Retry the original request
+      // Retry the original request (skip retry manager to avoid duplicate requests)
+      originalRequest.skipRetry = true;
       return await this.axiosInstance(originalRequest);
     } catch (error: any) {
       throw new AuthError(
