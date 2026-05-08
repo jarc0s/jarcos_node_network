@@ -9,21 +9,21 @@ export const defaultEnvironments: EnvironmentConfigs = {
     },
     auth: {
       autoRefresh: true,
-      refreshThreshold: 300000, // 5 minutes
+      refreshThreshold: 300000 // 5 minutes
     },
     cache: {
       enabled: true,
-      defaultTTL: 60000, // 1 minute for development
+      defaultTTL: 60000 // 1 minute for development
     },
     retry: {
       enabled: true,
-      maxAttempts: 2, // Less aggressive retries in development
+      maxAttempts: 2 // Less aggressive retries in development
     },
     logging: {
       enabled: true,
       level: 'debug',
       logRequests: true,
-      logResponses: true,
+      logResponses: true
     }
   },
   staging: {
@@ -34,21 +34,21 @@ export const defaultEnvironments: EnvironmentConfigs = {
     },
     auth: {
       autoRefresh: true,
-      refreshThreshold: 300000,
+      refreshThreshold: 300000
     },
     cache: {
       enabled: true,
-      defaultTTL: 300000, // 5 minutes
+      defaultTTL: 300000 // 5 minutes
     },
     retry: {
       enabled: true,
-      maxAttempts: 3,
+      maxAttempts: 3
     },
     logging: {
       enabled: true,
       level: 'info',
       logRequests: true,
-      logResponses: false, // Don't log response data in staging
+      logResponses: false // Don't log response data in staging
     }
   },
   production: {
@@ -59,16 +59,16 @@ export const defaultEnvironments: EnvironmentConfigs = {
     },
     auth: {
       autoRefresh: true,
-      refreshThreshold: 600000, // 10 minutes
+      refreshThreshold: 600000 // 10 minutes
     },
     cache: {
       enabled: true,
-      defaultTTL: 900000, // 15 minutes
+      defaultTTL: 900000 // 15 minutes
     },
     retry: {
       enabled: true,
       maxAttempts: 3,
-      baseDelay: 2000, // Longer delays in production
+      baseDelay: 2000 // Longer delays in production
     },
     logging: {
       enabled: true,
@@ -76,7 +76,7 @@ export const defaultEnvironments: EnvironmentConfigs = {
       logRequests: false,
       logResponses: false,
       logRetries: true,
-      logAuth: true,
+      logAuth: true
     }
   },
   test: {
@@ -86,16 +86,16 @@ export const defaultEnvironments: EnvironmentConfigs = {
       'X-Environment': 'test'
     },
     auth: {
-      autoRefresh: false, // Disable auto-refresh in tests
+      autoRefresh: false // Disable auto-refresh in tests
     },
     cache: {
-      enabled: false, // Disable cache in tests for predictability
+      enabled: false // Disable cache in tests for predictability
     },
     retry: {
-      enabled: false, // Disable retries in tests
+      enabled: false // Disable retries in tests
     },
     logging: {
-      enabled: false, // Disable logging in tests
+      enabled: false // Disable logging in tests
     }
   }
 };

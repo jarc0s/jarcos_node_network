@@ -7,7 +7,7 @@ export const defaultConfig: ApiClientConfig = {
   
   auth: {
     enabled: false,
-    tokenStorage: 'localStorage',
+    tokenStorage: 'memory',
     tokenKey: 'api_access_token',
     refreshTokenKey: 'api_refresh_token',
     refreshEndpoint: '/auth/refresh',

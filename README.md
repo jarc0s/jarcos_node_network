@@ -77,7 +77,7 @@ const api = new ApiClient({
   baseURL: 'https://api.example.com',
   auth: {
     enabled: true,
-    tokenStorage: 'localStorage',
+    tokenStorage: 'memory',
     loginEndpoint: '/auth/login',
     refreshEndpoint: '/auth/refresh',
     autoRefresh: true

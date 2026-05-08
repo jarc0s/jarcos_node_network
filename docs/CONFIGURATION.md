@@ -67,7 +67,7 @@ const client = new ApiClient({
     enabled: true,
     
     // Almacenamiento de tokens
-    tokenStorage: 'localStorage', // 'localStorage' | 'sessionStorage' | 'memory' | 'custom'
+    tokenStorage: 'memory', // 'localStorage' | 'sessionStorage' | 'memory' | 'custom'
     tokenKey: 'api_access_token',
     refreshTokenKey: 'api_refresh_token',
     
@@ -93,7 +93,7 @@ const client = new ApiClient({
 | Opción | Tipo | Defecto | Descripción |
 |--------|------|---------|-------------|
 | `enabled` | `boolean` | `false` | Habilitar autenticación |
-| `tokenStorage` | `TokenStorage` | `'localStorage'` | Dónde almacenar tokens |
+| `tokenStorage` | `TokenStorage` | `'memory'` | Dónde almacenar tokens |
 | `tokenKey` | `string` | `'api_access_token'` | Clave para access token |
 | `refreshTokenKey` | `string` | `'api_refresh_token'` | Clave para refresh token |
 | `loginEndpoint` | `string` | `'/auth/login'` | Endpoint de login |
@@ -593,7 +593,7 @@ const client = new ApiClient({
     maxContentLength: 10 * 1024 * 1024, // 10MB
     httpsAgent: new https.Agent({
       keepAlive: true,
-      rejectUnauthorized: false
+      rejectUnauthorized: true
     })
   },
   
@@ -653,7 +653,7 @@ const clientEcommerce = new ApiClient({
   
   auth: {
     enabled: true,
-    tokenStorage: 'localStorage',
+    tokenStorage: 'memory',
     autoRefresh: true,
     refreshThreshold: 300000
   },

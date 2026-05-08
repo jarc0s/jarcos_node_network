@@ -19,7 +19,7 @@ export class AuthManager {
   constructor(config: AuthConfig = {}) {
     this.config = {
       enabled: true,
-      tokenStorage: 'localStorage',
+      tokenStorage: 'memory',
       tokenKey: 'api_access_token',
       refreshTokenKey: 'api_refresh_token',
       refreshEndpoint: '/auth/refresh',

@@ -56,6 +56,7 @@ export class DeduplicationManager {
 
     const key = this.keyGenerator(method, url, data, params);
     this.stats.totalRequests++;
+    this.updateDeduplicationRate();
     
     this.logger?.debug('Request stats after increment', { 
       key,
@@ -120,7 +121,7 @@ export class DeduplicationManager {
         key, 
         activeRequests: this.pendingRequests.size 
       });
-    });
+    }).catch(() => {});
 
     return promise;
   }

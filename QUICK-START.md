@@ -39,7 +39,7 @@ export const api = new ApiClient({
   baseURL: process.env.NEXT_PUBLIC_API_URL!,
   auth: {
     enabled: true,
-    tokenStorage: 'localStorage',
+    tokenStorage: 'memory',
     loginEndpoint: '/auth/login',
     autoRefresh: true
   },
@@ -308,7 +308,7 @@ npm install
 const api = new ApiClient({
   auth: {
     enabled: true,
-    tokenStorage: 'localStorage', // o 'memory' en servidor
+    tokenStorage: 'memory', // o 'memory' en servidor
     refreshEndpoint: '/auth/refresh' // Asegúrate que existe
   }
 });
